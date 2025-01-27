@@ -4,12 +4,16 @@ Rails.application.routes.draw do
   end
 
   root to: "homes#show"
-  resources :shouts, only: [ :create ]
 
+  # Routes for Shouts
+  resources :shouts, only: [ :create, :show ]
+
+  # Routes for Session management
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]
   resource :session, only: [ :create ]
 
-  resources :users, only: [ :create ] do
+  # Routes for User management
+  resources :users, only: [ :create, :show ] do
     resource :password,
       controller: "clearance/passwords",
       only: [ :edit, :update ]
