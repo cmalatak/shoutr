@@ -1,8 +1,8 @@
-class SessionsController < ApplicationController
+class SessionsController < Clearance::SessionsController
   private
 
   def authenticate(_)
-    super(session_params)
+    super(ActionController::Parameters.new(session_params))
   end
 
   def session_params
