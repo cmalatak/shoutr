@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   root to: "homes#show"
 
   # Routes for Shouts
-  resources :shouts, only: [ :create, :show ]
+  resources :shouts, only: [ :create, :show ] do
+    member do
+      post "like" => "likes#create"
+      delete "unlike" => "likes#destroy"
+    end
+  end
 
   # Routes for Session management
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]
