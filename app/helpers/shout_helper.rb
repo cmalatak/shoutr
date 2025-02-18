@@ -14,6 +14,9 @@ module ShoutHelper
   end
 
   def autolink(text)
-    text.gsub(/@\w+/) { |mention| link_to mention, user_path(mention[1..-1]) }.html_safe
+    text.gsub(/@\w+/) do |mention|
+      return text if User.find_by(username: mention.delete("@")).nil?
+      link_to mention, user_path(mention[1..-1])
+     end.html_safe
   end
 end
