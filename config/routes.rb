@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   # Routes for User management
   resources :users, only: [ :create, :show ] do
+    member do
+      post "follow" => "followed_users#create"
+      delete "unfollow" => "followed_users#destroy"
+    end
     resource :password,
       controller: "clearance/passwords",
       only: [ :edit, :update ]
