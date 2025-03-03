@@ -18,6 +18,6 @@ module ShoutHelper
     text.gsub(/@\w+/) do |mention|
       return text if User.find_by(username: mention.delete("@")).nil?
       link_to mention, user_path(mention[1..-1])
-     end.html_safe
+     end.gsub(/#\w+/) { |hashtag| link_to hashtag, hashtag_path(hashtag[1..-1]) }.html_safe
   end
 end
